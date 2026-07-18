@@ -310,7 +310,7 @@ void drawLegend() {
 }
 
 int main() {
-    InitWindow(SCREEN_W, SCREEN_H, "Dijkstra's Algorithm ");
+    InitWindow(SCREEN_W, SCREEN_H, "Dijkstra's Algorithm Visualizer");
     SetTargetFPS(60);
 
     for (int r = 0; r < ROWS; r++)
@@ -324,13 +324,13 @@ int main() {
         bool overGrid = inBounds(row, col) && mouse.y > TOP_BAR;
 
         if (appState == IDLE && overGrid) {
-            if (IsKeyDown(KEY_S) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+            if (IsKeyDown(KEY_A) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
                 if (hasStart) grid[startPos.row][startPos.col] = EMPTY;
                 grid[row][col] = START;
                 startPos = Position(row, col);
                 hasStart = true;
             }
-            else if (IsKeyDown(KEY_E) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+            else if (IsKeyDown(KEY_D) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
                 if (hasEnd) grid[endPos.row][endPos.col] = EMPTY;
                 grid[row][col] = END;
                 endPos = Position(row, col);
@@ -347,13 +347,13 @@ int main() {
             }
         }
 
-        if (IsKeyPressed(KEY_SPACE) && hasStart && hasEnd && appState == IDLE) {
+        if (IsKeyPressed(KEY_ENTER) && hasStart && hasEnd && appState == IDLE) {
             runDijkstra();
         }
-        if (IsKeyPressed(KEY_R)) {
+        if (IsKeyPressed(KEY_F)) {
             resetGridKeepWalls();
         }
-        if (IsKeyPressed(KEY_C)) {
+        if (IsKeyPressed(KEY_X)) {
             clearEverything();
         }
 
@@ -396,9 +396,9 @@ int main() {
         ClearBackground(BG_COLOR);
 
         DrawText("DIJKSTRA'S ALGORITHM", 10, 6, 24, HEADER_COLOR);
-        // DrawText("LMB: wall | RMB: erase | S+LMB: start | E+LMB: end", 10, 36, 15, TEXT_COLOR);
+        // DrawText("LMB: wall | RMB: erase | A+LMB: start | D+LMB: end", 10, 36, 15, TEXT_COLOR);
         // DrawText("W+LMB: weighted terrain (costs 5 to cross, shown purple)", 10, 56, 15, TEXT_COLOR);
-        // DrawText("SPACE: run | R: reset run | C: clear all", 10, 76, 15, TEXT_COLOR);
+        // DrawText("ENTER: run | F: reset run | X: clear all", 10, 76, 15, TEXT_COLOR);
 
         if (appState == NO_PATH)
             DrawText("NO PATH FOUND", SCREEN_W - 170, 10, 20, END_COLOR);
